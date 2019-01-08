@@ -1,0 +1,33 @@
+# ColdFusion Monitoring iguration file
+# Classification (U)
+# Unclassified until filled.
+
+host = "HOSTNAME"
+
+# List of codes to check for
+code_list = [502, 503, CODE1]
+
+# Url Address to check
+url = "http://SERVER_ADDRESS"
+
+# Email address of administrator
+to_line = "EMAIL_ADDRESS@DOMAIN_NAME"
+
+# ColdFusion installation directory
+cf_dir = "INSTALL_DIR"
+
+# ColdFusion service name
+service = "SERVICE_NAME"
+
+# Do not modify - unless you know what you are modifying.
+java_proc = "java"
+bs_proc = "com.adobe.coldfusion.bootstrap.Bootstrap"
+start_arg = "start"
+down_msg = "Server is not running"
+# Sleep time (in seconds) to wait after a restart before releasing the program lock.
+start_sleep = 900
+# Read timeout setting (in seconds) passed to the requests.get command.
+read_timeout = 200
+# Connect timeout setting (in seconds) passed to the requests.get command.
+connect_timeout = 30
+
