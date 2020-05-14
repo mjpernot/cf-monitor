@@ -1,0 +1,7 @@
+*.pyc
+.coverage
+*.swp
+*.HOLD
+coverage.xml
+config/*.py
+lib
