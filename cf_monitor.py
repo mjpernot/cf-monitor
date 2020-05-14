@@ -58,7 +58,6 @@ import lib.gen_libs as gen_libs
 import lib.gen_class as gen_class
 import version
 
-# Version
 __version__ = version.__version__
 
 
@@ -70,8 +69,6 @@ def help_message(**kwargs):
         message when -h option is selected.
 
     Arguments:
-        (input) **kwargs:
-            None
 
     """
 
@@ -88,8 +85,6 @@ def get_code(url, read_timeout=None, connect_timeout=None, **kwargs):
         (input) url -> Web url address.
         (input) read_timeout -> Number of seconds for a read timeout.
         (input) connect_timeout -> Number of seconds for a connect timeout.
-        (input) **kwargs:
-            None
         (output) status -> Status of the web server.
 
     """
@@ -117,8 +112,6 @@ def email_admin(args_array, cfg, code, **kwargs):
         (input) args_array -> Dict of command line options and values.
         (input) cfg -> Configuration settings module.
         (input) code -> Status code.
-        (input) **kwargs:
-            None
 
     """
 
@@ -149,8 +142,6 @@ def service_cmd(service, arg, **kwargs):
     Arguments:
         (input) service -> Name of service.
         (input) arg -> Argument to run with service command.
-        (input) **kwargs:
-            None
         (output) msg -> Status return message from service command.
 
     """
@@ -171,8 +162,6 @@ def kill_process(pid_list, **kwargs):
 
     Arguments:
         (input) pid_list -> List of pids to kill.
-        (input) **kwargs:
-            None
 
     """
 
@@ -192,8 +181,6 @@ def find_process(cfg, **kwargs):
 
     Arguments:
         (input) cfg -> Configuration settings module.
-        (input) **kwargs:
-            None
         (output) pid_list -> List of pids to kill.
 
     """
@@ -225,8 +212,6 @@ def monitor(args_array, cfg, **kwargs):
     Arguments:
         (input) args_array -> Dict of command line options and values.
         (input) cfg -> Configuration settings module.
-        (input) **kwargs:
-            None
 
     """
 
@@ -262,8 +247,6 @@ def run_program(args_array, **kwargs):
 
     Arguments:
         (input) args_array -> Dict of command line options and values.
-        (input) **kwargs:
-            None
 
     """
 

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on "Keep a Changelog".  This project adheres to Semantic Versioning.
 
 
+## [0.2.0] - 2020-05-14
+### Changed
+- Documentation updates.
+
+
 ## [0.1.2] - 2018-11-09
 ### Changed
 - email_admin:  Changed "EMAIL" to "email" for instance name.
