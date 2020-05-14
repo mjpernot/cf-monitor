@@ -6,5 +6,6 @@
 
 echo ""
 echo "Unit testing..."
+test/unit/cf_monitor/email_admin.py
 test/unit/cf_monitor/get_code.py
 test/unit/cf_monitor/help_message.py
