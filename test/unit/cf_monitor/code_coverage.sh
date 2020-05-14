@@ -11,6 +11,7 @@ echo "Running unit test modules in conjunction with coverage"
 coverage run -a --source=cf_monitor test/unit/cf_monitor/email_admin.py
 coverage run -a --source=cf_monitor test/unit/cf_monitor/get_code.py
 coverage run -a --source=cf_monitor test/unit/cf_monitor/help_message.py
+coverage run -a --source=cf_monitor test/unit/cf_monitor/service_cmd.py
 
 echo ""
 echo "Producing code coverage report"
