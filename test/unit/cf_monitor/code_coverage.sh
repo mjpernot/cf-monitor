@@ -9,6 +9,7 @@ coverage erase
 echo ""
 echo "Running unit test modules in conjunction with coverage"
 coverage run -a --source=cf_monitor test/unit/cf_monitor/email_admin.py
+coverage run -a --source=cf_monitor test/unit/cf_monitor/find_process.py
 coverage run -a --source=cf_monitor test/unit/cf_monitor/get_code.py
 coverage run -a --source=cf_monitor test/unit/cf_monitor/help_message.py
 coverage run -a --source=cf_monitor test/unit/cf_monitor/kill_process.py

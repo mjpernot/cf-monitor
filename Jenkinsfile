@@ -16,6 +16,7 @@ pipeline {
                 source test_env/bin/activate
                 pip2 install mock==2.0.0 --user
                 ./test/unit/cf_monitor/email_admin.py
+                ./test/unit/cf_monitor/find_process.py
                 ./test/unit/cf_monitor/get_code.py
                 ./test/unit/cf_monitor/help_message.py
                 ./test/unit/cf_monitor/kill_process.py
