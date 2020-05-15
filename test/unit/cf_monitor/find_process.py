@@ -98,18 +98,6 @@ class Psutil(object):
 
         self.process_iter_list = [ProcessIter()]
 
-    def process_iter(self):
-
-        """Method:  process_iter
-
-        Description:  process_iter method.
-
-        Arguments:
-
-        """
-
-        return self.process_iter_list
-
 
 class UnitTest(unittest.TestCase):
 
@@ -119,7 +107,7 @@ class UnitTest(unittest.TestCase):
 
     Methods:
         setUp -> Initialize testing environment.
-        test_find_process -> Test find_process function.
+        test_no_finds -> Test with one process in list, but no finds.
 
     """
 
@@ -163,17 +151,17 @@ class UnitTest(unittest.TestCase):
         self.psutil = Psutil()
 
     @mock.patch("cf_monitor.psutil")
-    def test_one_process(self, mock_psutil):
+    def test_no_finds(self, mock_psutil):
 
-        """Function:  test_one_process
+        """Function:  test_no_finds
 
-        Description:  Test with one process in list.
+        Description:  Test with one process in list, but no finds.
 
         Arguments:
 
         """
 
-        mock_psutil.return_value = self.psutil
+        mock_psutil.process_iter.return_value = self.psutil.process_iter_list
 
         self.assertEqual(cf_monitor.find_process(self.cfg), [])
 
