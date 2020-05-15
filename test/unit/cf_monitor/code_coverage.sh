@@ -13,6 +13,7 @@ coverage run -a --source=cf_monitor test/unit/cf_monitor/find_process.py
 coverage run -a --source=cf_monitor test/unit/cf_monitor/get_code.py
 coverage run -a --source=cf_monitor test/unit/cf_monitor/help_message.py
 coverage run -a --source=cf_monitor test/unit/cf_monitor/kill_process.py
+coverage run -a --source=cf_monitor test/unit/cf_monitor/main.py
 coverage run -a --source=cf_monitor test/unit/cf_monitor/monitor.py
 coverage run -a --source=cf_monitor test/unit/cf_monitor/run_program.py
 coverage run -a --source=cf_monitor test/unit/cf_monitor/service_cmd.py
