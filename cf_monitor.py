@@ -168,11 +168,12 @@ def kill_process(pid_list, **kwargs):
     """
 
     pid_list = list(pid_list)
+    subp = gen_libs.get_inst(subprocess)
     kill = "/usr/bin/kill"
     arg = "-9"
 
     for pid in pid_list:
-        subprocess.call([kill, arg, str(pid)])
+        subp.call([kill, arg, str(pid)])
 
 
 def find_process(cfg, **kwargs):
