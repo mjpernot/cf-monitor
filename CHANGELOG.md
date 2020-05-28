@@ -5,6 +5,9 @@ The format is based on "Keep a Changelog".  This project adheres to Semantic Ver
 
 
 ## [0.2.0] - 2020-05-14
+### Fixed
+- run_program:  Fixed problem with mutable default arguments issue.
+
 ### Changed
 - Documentation updates.
 

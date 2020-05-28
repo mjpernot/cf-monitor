@@ -250,6 +250,7 @@ def run_program(args_array, **kwargs):
 
     """
 
+    args_array = dict(args_array)
     cfg = gen_libs.load_module(args_array["-c"], args_array["-d"])
 
     try:
