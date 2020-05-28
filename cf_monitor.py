@@ -215,6 +215,7 @@ def monitor(args_array, cfg, **kwargs):
 
     """
 
+    args_array = dict(args_array)
     code = get_code(cfg.url, cfg.read_timeout, cfg.connect_timeout)
 
     if code in cfg.code_list or "Timeout" in str(code):
