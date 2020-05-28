@@ -165,6 +165,7 @@ def kill_process(pid_list, **kwargs):
 
     """
 
+    pid_list = list(pid_list)
     kill = "/usr/bin/kill"
     arg = "-9"
 
