@@ -246,7 +246,6 @@ def run_program(args_array, **kwargs):
     """Function:  run_program
 
     Description:  Creates class instance and controls flow of the program.
-        Create a program lock to prevent other instantiations from running.
 
     Arguments:
         (input) args_array -> Dict of command line options and values.
@@ -255,16 +254,7 @@ def run_program(args_array, **kwargs):
 
     args_array = dict(args_array)
     cfg = gen_libs.load_module(args_array["-c"], args_array["-d"])
-
-    try:
-        PROG_LOCK = gen_class.ProgramLock(sys.argv, cfg.host)
-
-        monitor(args_array, cfg)
-
-        del PROG_LOCK
-
-    except gen_class.SingleInstanceException:
-        print("WARNING:  cf_monitor lock in place for: %s" % (cfg.host))
+    monitor(args_array, cfg)
 
 
 def main():
