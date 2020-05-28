@@ -8,10 +8,11 @@
         met.
 
     Usage:
-        cf_monitor.py -c file -d path [-M] [-v | -h]
+        cf_monitor.py -c file -d path [-M] [-y flavor_id] [-v | -h]
 
     Arguments:
         -M => Monitor only.
+        -y value => A flavor id for the program lock.  To create unique lock.
         -v => Display version of this program.
         -h => Help and usage message.
 
@@ -276,7 +277,7 @@ def main():
 
     dir_chk_list = ["-d"]
     opt_req_list = ["-c", "-d"]
-    opt_val_list = ["-c", "-d"]
+    opt_val_list = ["-c", "-d", "-y"]
 
     # Process argument list from command line.
     args_array = arg_parser.arg_parse2(sys.argv, opt_val_list)
@@ -284,7 +285,16 @@ def main():
     if not gen_libs.help_func(args_array, __version__, help_message) \
        and not arg_parser.arg_require(args_array, opt_req_list) \
        and not arg_parser.arg_dir_chk_crt(args_array, dir_chk_list):
-        run_program(args_array)
+
+        try:
+            proglock = gen_class.ProgramLock(sys.argv,
+                                             args_array.get("-y", ""))
+            run_program(args_array)
+            del proglock
+
+        except gen_class.SingleInstanceException:
+            print("WARNING:  lock in place for cf_monitor with id of: %s"
+                  % (args_array.get("-y", "")))
 
 
 if __name__ == "__main__":

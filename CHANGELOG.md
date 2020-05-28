@@ -5,6 +5,9 @@ The format is based on "Keep a Changelog".  This project adheres to Semantic Ver
 
 
 ## [0.2.0] - 2020-05-14
+### Added
+- Added -y option to allow flavor IDs for the ProgramLock.
+
 ### Fixed
 - email_admin:  Fixed problem with mutable default arguments issue.
 - kill_process:  Fixed problem with mutable default arguments issue.
@@ -13,6 +16,7 @@ The format is based on "Keep a Changelog".  This project adheres to Semantic Ver
 
 ### Changed
 - run_program:  Removed ProgramLock from this function.
+- main: Added ProgramLock to this function.
 - main:  Refactored "if" statements.
 - Documentation updates.
 
