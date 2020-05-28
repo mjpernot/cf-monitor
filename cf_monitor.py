@@ -115,6 +115,7 @@ def email_admin(args_array, cfg, code, **kwargs):
 
     """
 
+    args_array = dict(args_array)
     host = socket.gethostname()
     frm_line = getpass.getuser() + "@" + host
     subj = host + "-> Coldfusion Status Code: " + str(code)

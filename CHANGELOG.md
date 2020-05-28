@@ -6,6 +6,7 @@ The format is based on "Keep a Changelog".  This project adheres to Semantic Ver
 
 ## [0.2.0] - 2020-05-14
 ### Fixed
+- email_admin:  Fixed problem with mutable default arguments issue.
 - kill_process:  Fixed problem with mutable default arguments issue.
 - monitor:  Fixed problem with mutable default arguments issue.
 - run_program:  Fixed problem with mutable default arguments issue.
