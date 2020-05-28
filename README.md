@@ -100,8 +100,6 @@ Advance environment variables.
 
 # Unit Testing:
 
-### Description: Testing consists of unit testing for the functions in the cf_monitor.py program.
-
 ### Installation:
 
 Install the project using git.
