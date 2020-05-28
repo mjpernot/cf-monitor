@@ -148,10 +148,11 @@ def service_cmd(service, arg, **kwargs):
 
     """
 
+    subp = gen_libs.get_inst(subprocess)
     cmd = "/sbin/service"
 
-    P1 = subprocess.Popen([cmd, service, arg], stdout=subprocess.PIPE)
-    msg, status = P1.communicate()
+    proc1 = subp.Popen([cmd, service, arg], stdout=subp.PIPE)
+    msg, status = proc1.communicate()
 
     return msg
 

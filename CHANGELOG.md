@@ -9,6 +9,7 @@ The format is based on "Keep a Changelog".  This project adheres to Semantic Ver
 - Added -y option to allow flavor IDs for the ProgramLock.
 
 ### Fixed
+- service_cmd:  Fixed handling subprocess line from SonarQube scan finding.
 - kill_process:  Fixed handling subprocess line from SonarQube scan finding.
 - main: Fixed handling command line arguments from SonarQube scan finding.
 - email_admin:  Fixed problem with mutable default arguments issue.
