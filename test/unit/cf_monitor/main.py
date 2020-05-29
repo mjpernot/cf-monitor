@@ -18,8 +18,6 @@
 import sys
 import os
 import unittest
-import contextlib
-import io
 
 # Third-party
 import mock
