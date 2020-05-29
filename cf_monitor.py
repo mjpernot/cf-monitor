@@ -47,8 +47,9 @@ import time
 import getpass
 import socket
 import datetime
-import psutil
 import subprocess
+import psutil
+
 
 # Third-party
 import requests
@@ -152,7 +153,7 @@ def service_cmd(service, arg, **kwargs):
     cmd = "/sbin/service"
 
     proc1 = subp.Popen([cmd, service, arg], stdout=subp.PIPE)
-    msg, status = proc1.communicate()
+    msg, _ = proc1.communicate()
 
     return msg
 
