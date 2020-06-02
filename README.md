@@ -2,7 +2,7 @@
 # Classification (U)
 
 # Description:
-  This program is used to monitor the health of a ColdFusion application.  This includes checking for specific errors and initiating a recycle of the application.
+  Used to monitor the health of a ColdFusion application.  This includes checking for specific errors and initiating a recycle of the application.
 
 
 ###  This README file is broken down into the following sections:
