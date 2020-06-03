@@ -1,5 +1,5 @@
 coverage==4.4.2
-mock>=2.0.0
+mock==2.0.0
 psutil==2.2.1
-requests>=2.18.4
+requests==2.18.4
 unittest2>=1.1.0

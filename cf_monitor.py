@@ -8,10 +8,11 @@
         met.
 
     Usage:
-        cf_monitor.py -c file -d path [-M] [-v | -h]
+        cf_monitor.py -c file -d path [-M] [-y flavor_id] [-v | -h]
 
     Arguments:
         -M => Monitor only.
+        -y value => A flavor id for the program lock.  To create unique lock.
         -v => Display version of this program.
         -h => Help and usage message.
 
@@ -46,8 +47,9 @@ import time
 import getpass
 import socket
 import datetime
-import psutil
 import subprocess
+import psutil
+
 
 # Third-party
 import requests
@@ -58,7 +60,6 @@ import lib.gen_libs as gen_libs
 import lib.gen_class as gen_class
 import version
 
-# Version
 __version__ = version.__version__
 
 
@@ -70,8 +71,6 @@ def help_message(**kwargs):
         message when -h option is selected.
 
     Arguments:
-        (input) **kwargs:
-            None
 
     """
 
@@ -88,8 +87,6 @@ def get_code(url, read_timeout=None, connect_timeout=None, **kwargs):
         (input) url -> Web url address.
         (input) read_timeout -> Number of seconds for a read timeout.
         (input) connect_timeout -> Number of seconds for a connect timeout.
-        (input) **kwargs:
-            None
         (output) status -> Status of the web server.
 
     """
@@ -117,11 +114,10 @@ def email_admin(args_array, cfg, code, **kwargs):
         (input) args_array -> Dict of command line options and values.
         (input) cfg -> Configuration settings module.
         (input) code -> Status code.
-        (input) **kwargs:
-            None
 
     """
 
+    args_array = dict(args_array)
     host = socket.gethostname()
     frm_line = getpass.getuser() + "@" + host
     subj = host + "-> Coldfusion Status Code: " + str(code)
@@ -149,16 +145,15 @@ def service_cmd(service, arg, **kwargs):
     Arguments:
         (input) service -> Name of service.
         (input) arg -> Argument to run with service command.
-        (input) **kwargs:
-            None
         (output) msg -> Status return message from service command.
 
     """
 
+    subp = gen_libs.get_inst(subprocess)
     cmd = "/sbin/service"
 
-    P1 = subprocess.Popen([cmd, service, arg], stdout=subprocess.PIPE)
-    msg, status = P1.communicate()
+    proc1 = subp.Popen([cmd, service, arg], stdout=subp.PIPE)
+    msg, _ = proc1.communicate()
 
     return msg
 
@@ -171,16 +166,16 @@ def kill_process(pid_list, **kwargs):
 
     Arguments:
         (input) pid_list -> List of pids to kill.
-        (input) **kwargs:
-            None
 
     """
 
+    pid_list = list(pid_list)
+    subp = gen_libs.get_inst(subprocess)
     kill = "/usr/bin/kill"
     arg = "-9"
 
     for pid in pid_list:
-        subprocess.call([kill, arg, str(pid)])
+        subp.call([kill, arg, str(pid)])
 
 
 def find_process(cfg, **kwargs):
@@ -192,8 +187,6 @@ def find_process(cfg, **kwargs):
 
     Arguments:
         (input) cfg -> Configuration settings module.
-        (input) **kwargs:
-            None
         (output) pid_list -> List of pids to kill.
 
     """
@@ -225,11 +218,10 @@ def monitor(args_array, cfg, **kwargs):
     Arguments:
         (input) args_array -> Dict of command line options and values.
         (input) cfg -> Configuration settings module.
-        (input) **kwargs:
-            None
 
     """
 
+    args_array = dict(args_array)
     code = get_code(cfg.url, cfg.read_timeout, cfg.connect_timeout)
 
     if code in cfg.code_list or "Timeout" in str(code):
@@ -258,26 +250,15 @@ def run_program(args_array, **kwargs):
     """Function:  run_program
 
     Description:  Creates class instance and controls flow of the program.
-        Create a program lock to prevent other instantiations from running.
 
     Arguments:
         (input) args_array -> Dict of command line options and values.
-        (input) **kwargs:
-            None
 
     """
 
+    args_array = dict(args_array)
     cfg = gen_libs.load_module(args_array["-c"], args_array["-d"])
-
-    try:
-        PROG_LOCK = gen_class.ProgramLock(sys.argv, cfg.host)
-
-        monitor(args_array, cfg)
-
-        del PROG_LOCK
-
-    except gen_class.SingleInstanceException:
-        print("WARNING:  cf_monitor lock in place for: %s" % (cfg.host))
+    monitor(args_array, cfg)
 
 
 def main():
@@ -297,17 +278,27 @@ def main():
 
     """
 
+    cmdline = gen_libs.get_inst(sys)
     dir_chk_list = ["-d"]
     opt_req_list = ["-c", "-d"]
-    opt_val_list = ["-c", "-d"]
+    opt_val_list = ["-c", "-d", "-y"]
 
     # Process argument list from command line.
-    args_array = arg_parser.arg_parse2(sys.argv, opt_val_list)
+    args_array = arg_parser.arg_parse2(cmdline.argv, opt_val_list)
 
-    if not gen_libs.help_func(args_array, __version__, help_message):
-        if not arg_parser.arg_require(args_array, opt_req_list) \
-           and not arg_parser.arg_dir_chk_crt(args_array, dir_chk_list):
+    if not gen_libs.help_func(args_array, __version__, help_message) \
+       and not arg_parser.arg_require(args_array, opt_req_list) \
+       and not arg_parser.arg_dir_chk_crt(args_array, dir_chk_list):
+
+        try:
+            proglock = gen_class.ProgramLock(cmdline.argv,
+                                             args_array.get("-y", ""))
             run_program(args_array)
+            del proglock
+
+        except gen_class.SingleInstanceException:
+            print("WARNING:  lock in place for cf_monitor with id of: %s"
+                  % (args_array.get("-y", "")))
 
 
 if __name__ == "__main__":
