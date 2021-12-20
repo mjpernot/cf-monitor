@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on "Keep a Changelog".  This project adheres to Semantic Versioning.
 
 
+## [0.3.0] - 2021-12-20
+- Field release.
+
+
 ## [0.2.0] - 2020-05-14
 ### Added
 - Added -y option to allow flavor IDs for the ProgramLock.
