@@ -16,13 +16,8 @@ The format is based on "Keep a Changelog".  This project adheres to Semantic Ver
 - Added -y option to allow flavor IDs for the ProgramLock.
 
 ### Fixed
-- service_cmd:  Fixed handling subprocess line from SonarQube scan finding.
-- kill_process:  Fixed handling subprocess line from SonarQube scan finding.
-- main: Fixed handling command line arguments from SonarQube scan finding.
-- email_admin:  Fixed problem with mutable default arguments issue.
-- kill_process:  Fixed problem with mutable default arguments issue.
-- monitor:  Fixed problem with mutable default arguments issue.
-- run_program:  Fixed problem with mutable default arguments issue.
+- service_cmd, kill_process, main:  Fixed handling subprocess line.
+- email_admin, kill_process, monitor, run_program:  Fixed problem with mutable default arguments issue.
 
 ### Changed
 - service_cmd:  Changed unused returning parameter to placeholder.
