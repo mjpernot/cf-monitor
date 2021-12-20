@@ -67,7 +67,7 @@ import version
 __version__ = version.__version__
 
 
-def help_message(**kwargs):
+def help_message():
 
     """Function:  help_message
 
@@ -81,7 +81,7 @@ def help_message(**kwargs):
     print(__doc__)
 
 
-def get_code(url, read_timeout=None, connect_timeout=None, **kwargs):
+def get_code(url, read_timeout=None, connect_timeout=None):
 
     """Function:  get_code
 
@@ -108,7 +108,7 @@ def get_code(url, read_timeout=None, connect_timeout=None, **kwargs):
     return status
 
 
-def email_admin(args_array, cfg, code, **kwargs):
+def email_admin(args_array, cfg, code):
 
     """Function:  email_admin
 
@@ -140,7 +140,7 @@ def email_admin(args_array, cfg, code, **kwargs):
     email.send_mail()
 
 
-def service_cmd(service, arg, **kwargs):
+def service_cmd(service, arg):
 
     """Function:  service_cmd
 
@@ -162,7 +162,7 @@ def service_cmd(service, arg, **kwargs):
     return msg
 
 
-def kill_process(pid_list, **kwargs):
+def kill_process(pid_list):
 
     """Function:  kill_process
 
@@ -182,7 +182,7 @@ def kill_process(pid_list, **kwargs):
         subp.call([kill, arg, str(pid)])
 
 
-def find_process(cfg, **kwargs):
+def find_process(cfg):
 
     """Function:  find_process
 
@@ -212,7 +212,7 @@ def find_process(cfg, **kwargs):
     return pid_list
 
 
-def monitor(args_array, cfg, **kwargs):
+def monitor(args_array, cfg):
 
     """Function:  monitor
 

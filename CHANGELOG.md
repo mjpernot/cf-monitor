@@ -8,6 +8,7 @@ The format is based on "Keep a Changelog".  This project adheres to Semantic Ver
 - Field release.
 
 ### Changed
+- Removed non-required \*\*kwargs from function parameter list.
 - Documentation updates.
 
 
