@@ -7,6 +7,9 @@ The format is based on "Keep a Changelog".  This project adheres to Semantic Ver
 ## [0.3.0] - 2021-12-20
 - Field release.
 
+### Changed
+- Documentation updates.
+
 
 ## [0.2.0] - 2020-05-14
 ### Added

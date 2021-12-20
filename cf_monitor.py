@@ -11,7 +11,11 @@
         cf_monitor.py -c file -d path [-M] [-y flavor_id] [-v | -h]
 
     Arguments:
+        -c file => Configuration file.  Required argument.
+        -d dir_path => Directory path for option '-c'.  Required argument.
+
         -M => Monitor only.
+
         -y value => A flavor id for the program lock.  To create unique lock.
         -v => Display version of this program.
         -h => Help and usage message.
