@@ -41,8 +41,8 @@ class Popen(object):
     Description:  Class stub holder for subprocess.Popen class.
 
     Methods:
-        __init__ -> Class initialization.
-        communicate -> communicate method.
+        __init__
+        communicate
 
     """
 
@@ -81,8 +81,8 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Initialize testing environment.
-        test_service_cmd -> Test service_cmd function.
+        setUp
+        test_service_cmd
 
     """
 
