@@ -15,6 +15,7 @@ pipeline {
                 virtualenv test_env
                 source test_env/bin/activate
                 pip2 install mock==2.0.0 --user
+                pip2 install psutil==2.2.1 --user
                 ./test/unit/cf_monitor/email_admin.py
                 ./test/unit/cf_monitor/find_process.py
                 ./test/unit/cf_monitor/get_code.py
