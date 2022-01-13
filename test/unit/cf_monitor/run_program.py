@@ -41,9 +41,9 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Initialize testing environment.
-        test_programlock_false -> Test with ProgramLock returns False.
-        test_run_monitor -> Test with executing monitor function.
+        setUp
+        test_programlock_false
+        test_run_monitor
 
     """
 
@@ -64,7 +64,7 @@ class UnitTest(unittest.TestCase):
             Description:  Class which is a representation of a cfg module.
 
             Methods:
-                __init__ -> Initialize configuration environment.
+                __init__
 
             """
 

@@ -41,12 +41,12 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Initialize testing environment.
-        test_kill_process -> Test with code detected with kill process.
-        test_code_detected -> Test with code detected with reboot.
-        test_monitor_timeout_detected -> Test with timeout while monitoring.
-        test_monitor_code_detected -> Test with code detected while monitoring.
-        test_no_code_detected -> Test with no code detected.
+        setUp
+        test_kill_process
+        test_code_detected
+        test_monitor_timeout_detected
+        test_monitor_code_detected
+        test_no_code_detected
 
     """
 
@@ -67,7 +67,7 @@ class UnitTest(unittest.TestCase):
             Description:  Class which is a representation of a cfg module.
 
             Methods:
-                __init__ -> Initialize configuration environment.
+                __init__
 
             """
 

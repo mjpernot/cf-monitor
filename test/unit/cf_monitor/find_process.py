@@ -41,8 +41,8 @@ class ProcessIter3(object):
     Description:  Class stub holder for psutil.process_iter class.
 
     Methods:
-        __init__ -> Class initialization.
-        as_dict -> as_dict method.
+        __init__
+        as_dict
 
     """
 
@@ -83,8 +83,8 @@ class Psutil3(object):
     Description:  Class stub holder for psutil class.
 
     Methods:
-        __init__ -> Class initialization.
-        process_iter -> process_iter method.
+        __init__
+        process_iter
 
     """
 
@@ -108,8 +108,8 @@ class ProcessIter2(object):
     Description:  Class stub holder for psutil.process_iter class.
 
     Methods:
-        __init__ -> Class initialization.
-        as_dict -> as_dict method.
+        __init__
+        as_dict
 
     """
 
@@ -150,8 +150,8 @@ class Psutil2(object):
     Description:  Class stub holder for psutil class.
 
     Methods:
-        __init__ -> Class initialization.
-        process_iter -> process_iter method.
+        __init__
+        process_iter
 
     """
 
@@ -175,8 +175,8 @@ class ProcessIter(object):
     Description:  Class stub holder for psutil.process_iter class.
 
     Methods:
-        __init__ -> Class initialization.
-        as_dict -> as_dict method.
+        __init__
+        as_dict
 
     """
 
@@ -215,8 +215,8 @@ class Psutil(object):
     Description:  Class stub holder for psutil class.
 
     Methods:
-        __init__ -> Class initialization.
-        process_iter -> process_iter method.
+        __init__
+        process_iter
 
     """
 
@@ -240,10 +240,10 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Initialize testing environment.
-        test_multiple_finds -> Test with multiple finds.
-        test_finds -> Test with one process in list and finds an entry.
-        test_no_finds -> Test with one process in list, but no finds.
+        setUp
+        test_multiple_finds
+        test_finds
+        test_no_finds
 
     """
 
@@ -264,7 +264,7 @@ class UnitTest(unittest.TestCase):
             Description:  Class which is a representation of a cfg module.
 
             Methods:
-                __init__ -> Initialize configuration environment.
+                __init__
 
             """
 
