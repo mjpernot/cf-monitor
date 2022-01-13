@@ -41,9 +41,9 @@ class Mail(object):
     Description:  Class stub holder for gen_class.Mail class.
 
     Methods:
-        __init__ -> Class initialization.
-        add_2_msg -> add_2_msg method.
-        send_mail -> send_mail method.
+        __init__
+        add_2_msg
+        send_mail
 
     """
 
@@ -94,9 +94,9 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Initialize testing environment.
-        test_not_monitoring -> Test with no -M in args_array.
-        test_monitor_only -> Test with -M in args_array.
+        setUp
+        test_not_monitoring
+        test_monitor_only
 
     """
 
@@ -117,7 +117,7 @@ class UnitTest(unittest.TestCase):
             Description:  Class which is a representation of a cfg module.
 
             Methods:
-                __init__ -> Initialize configuration environment.
+                __init__
 
             """
 

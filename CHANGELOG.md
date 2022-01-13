@@ -4,18 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on "Keep a Changelog".  This project adheres to Semantic Versioning.
 
 
+## [0.3.0] - 2021-12-20
+- Field release.
+
+### Changed
+- Removed non-required \*\*kwargs from function parameter list.
+- Documentation updates.
+
+
 ## [0.2.0] - 2020-05-14
 ### Added
 - Added -y option to allow flavor IDs for the ProgramLock.
 
 ### Fixed
-- service_cmd:  Fixed handling subprocess line from SonarQube scan finding.
-- kill_process:  Fixed handling subprocess line from SonarQube scan finding.
-- main: Fixed handling command line arguments from SonarQube scan finding.
-- email_admin:  Fixed problem with mutable default arguments issue.
-- kill_process:  Fixed problem with mutable default arguments issue.
-- monitor:  Fixed problem with mutable default arguments issue.
-- run_program:  Fixed problem with mutable default arguments issue.
+- service_cmd, kill_process, main:  Fixed handling subprocess line.
+- email_admin, kill_process, monitor, run_program:  Fixed problem with mutable default arguments issue.
 
 ### Changed
 - service_cmd:  Changed unused returning parameter to placeholder.

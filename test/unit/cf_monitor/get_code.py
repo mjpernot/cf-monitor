@@ -41,7 +41,7 @@ class Requests(object):
     Description:  Class stub holder for Requests class.
 
     Methods:
-        __init__ -> Class initialization.
+        __init__
 
     """
 
@@ -67,8 +67,8 @@ class UnitTest(unittest.TestCase):
     Description:  Class which is a representation of a unit testing.
 
     Methods:
-        setUp -> Initialize testing environment.
-        test_successful_connection -> Test with no arguments.
+        setUp
+        test_successful_connection
 
     """
 
