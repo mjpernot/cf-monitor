@@ -88,10 +88,10 @@ def get_code(url, read_timeout=None, connect_timeout=None):
     Description:  Open a connection to a web server and return the status code.
 
     Arguments:
-        (input) url -> Web url address.
-        (input) read_timeout -> Number of seconds for a read timeout.
-        (input) connect_timeout -> Number of seconds for a connect timeout.
-        (output) status -> Status of the web server.
+        (input) url -> Web url address
+        (input) read_timeout -> Number of seconds for a read timeout
+        (input) connect_timeout -> Number of seconds for a connect timeout
+        (output) status -> Status of the web server
 
     """
 
@@ -115,9 +115,9 @@ def email_admin(args_array, cfg, code):
     Description:  Email status code to administrators.
 
     Arguments:
-        (input) args_array -> Dict of command line options and values.
-        (input) cfg -> Configuration settings module.
-        (input) code -> Status code.
+        (input) args_array -> Dict of command line options and values
+        (input) cfg -> Configuration settings module
+        (input) code -> Status code
 
     """
 
@@ -147,9 +147,9 @@ def service_cmd(service, arg):
     Description:  Run the system service program with designated command.
 
     Arguments:
-        (input) service -> Name of service.
-        (input) arg -> Argument to run with service command.
-        (output) msg -> Status return message from service command.
+        (input) service -> Name of service
+        (input) arg -> Argument to run with service command
+        (output) msg -> Status return message from service command
 
     """
 
@@ -169,7 +169,7 @@ def kill_process(pid_list):
     Description:  Run the system kill command against a process pid.
 
     Arguments:
-        (input) pid_list -> List of pids to kill.
+        (input) pid_list -> List of pids to kill
 
     """
 
@@ -190,8 +190,8 @@ def find_process(cfg):
         a list of pids.
 
     Arguments:
-        (input) cfg -> Configuration settings module.
-        (output) pid_list -> List of pids to kill.
+        (input) cfg -> Configuration settings module
+        (output) pid_list -> List of pids to kill
 
     """
 
@@ -220,8 +220,8 @@ def monitor(args_array, cfg):
         appropriate actions when certain conditions are meet.
 
     Arguments:
-        (input) args_array -> Dict of command line options and values.
-        (input) cfg -> Configuration settings module.
+        (input) args_array -> Dict of command line options and values
+        (input) cfg -> Configuration settings module
 
     """
 
@@ -249,20 +249,19 @@ def monitor(args_array, cfg):
             time.sleep(cfg.start_sleep)
 
 
-def run_program(args_array, **kwargs):
+def run_program(args, **kwargs):
 
     """Function:  run_program
 
     Description:  Creates class instance and controls flow of the program.
 
     Arguments:
-        (input) args_array -> Dict of command line options and values.
+        (input) args -> ArgParser class instance
 
     """
 
-    args_array = dict(args_array)
-    cfg = gen_libs.load_module(args_array["-c"], args_array["-d"])
-    monitor(args_array, cfg)
+    cfg = gen_libs.load_module(args.get_val("-c"), args.get_val("-d"))
+    monitor(args, cfg)
 
 
 def main():
@@ -284,19 +283,14 @@ def main():
     """
 
     cmdline = gen_libs.get_inst(sys)
-#    dir_chk_list = ["-d"]
     dir_perms_chk = {"-d": 5}
     opt_req_list = ["-c", "-d"]
     opt_val_list = ["-c", "-d", "-y"]
 
     # Process argument list from command line.
-#    args_array = arg_parser.arg_parse2(cmdline.argv, opt_val_list)
     args = gen_class.ArgParser(
         cmdline.argv, opt_val=opt_val_list, do_parse=True)
 
-#    if not gen_libs.help_func(args_array, __version__, help_message) \
-#       and not arg_parser.arg_require(args_array, opt_req_list) \
-#       and not arg_parser.arg_dir_chk_crt(args_array, dir_chk_list):
     if not gen_libs.help_func(args.get_args(), __version__, help_message)   \
        and args.arg_require(opt_req=opt_req_list)                           \
        and args.arg_dir_chk(dir_perms_chk=dir_perms_chk):
