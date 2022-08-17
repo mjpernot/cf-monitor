@@ -59,7 +59,6 @@ import psutil
 import requests
 
 # Local
-import lib.arg_parser as arg_parser
 import lib.gen_libs as gen_libs
 import lib.gen_class as gen_class
 import version
@@ -247,7 +246,7 @@ def monitor(args, cfg):
             time.sleep(cfg.start_sleep)
 
 
-def run_program(args, **kwargs):
+def run_program(args):
 
     """Function:  run_program
 
