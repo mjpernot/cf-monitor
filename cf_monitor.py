@@ -273,7 +273,8 @@ def main():
         line arguments and values.
 
     Variables:
-        dir_chk_list -> contains options which will be directories.
+        dir_perms_chk -> contains options which will be directories and the
+            octal permission settings
         opt_req_list -> contains options that are required for the program.
         opt_val_list -> contains options which require values.
 
@@ -283,26 +284,32 @@ def main():
     """
 
     cmdline = gen_libs.get_inst(sys)
-    dir_chk_list = ["-d"]
+#    dir_chk_list = ["-d"]
+    dir_perms_chk = {"-d": 5}
     opt_req_list = ["-c", "-d"]
     opt_val_list = ["-c", "-d", "-y"]
 
     # Process argument list from command line.
-    args_array = arg_parser.arg_parse2(cmdline.argv, opt_val_list)
+#    args_array = arg_parser.arg_parse2(cmdline.argv, opt_val_list)
+    args = gen_class.ArgParser(
+        cmdline.argv, opt_val=opt_val_list, do_parse=True)
 
-    if not gen_libs.help_func(args_array, __version__, help_message) \
-       and not arg_parser.arg_require(args_array, opt_req_list) \
-       and not arg_parser.arg_dir_chk_crt(args_array, dir_chk_list):
+#    if not gen_libs.help_func(args_array, __version__, help_message) \
+#       and not arg_parser.arg_require(args_array, opt_req_list) \
+#       and not arg_parser.arg_dir_chk_crt(args_array, dir_chk_list):
+    if not gen_libs.help_func(args.get_args(), __version__, help_message)   \
+       and args.arg_require(opt_req=opt_req_list)                           \
+       and args.arg_dir_chk(dir_perms_chk=dir_perms_chk):
 
         try:
-            proglock = gen_class.ProgramLock(cmdline.argv,
-                                             args_array.get("-y", ""))
-            run_program(args_array)
+            proglock = gen_class.ProgramLock(
+                cmdline.argv, args.get_val("-y", def_val=""))
+            run_program(args)
             del proglock
 
         except gen_class.SingleInstanceException:
             print("WARNING:  lock in place for cf_monitor with id of: %s"
-                  % (args_array.get("-y", "")))
+                  % (args.get_val("-y", def_val="")))
 
 
 if __name__ == "__main__":

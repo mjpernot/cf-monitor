@@ -5,7 +5,11 @@ The format is based on "Keep a Changelog".  This project adheres to Semantic Ver
 
 
 ## [1.0.0] - 2022-06-28
-- General release.
+- General release
+- Upgrade python-lib to v2.9.3
+
+### Changed
+- main: Replaced the use of arg_parser (args_array) with gen_class.ArgParser class (args).
 
 
 ## [0.3.0] - 2021-12-20
