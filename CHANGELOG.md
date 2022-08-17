@@ -9,7 +9,7 @@ The format is based on "Keep a Changelog".  This project adheres to Semantic Ver
 - Upgrade python-lib to v2.9.3
 
 ### Changed
-- main, run_program: Replaced the use of arg_parser (args_array) with gen_class.ArgParser class (args).
+- main, run_program, monitor: Replaced the use of arg_parser (args_array) with gen_class.ArgParser class (args).
 
 
 ## [0.3.0] - 2021-12-20

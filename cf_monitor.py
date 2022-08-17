@@ -212,7 +212,7 @@ def find_process(cfg):
     return pid_list
 
 
-def monitor(args_array, cfg):
+def monitor(args, cfg):
 
     """Function:  monitor
 
@@ -220,18 +220,17 @@ def monitor(args_array, cfg):
         appropriate actions when certain conditions are meet.
 
     Arguments:
-        (input) args_array -> Dict of command line options and values
+        (input) args -> ArgParser class instance
         (input) cfg -> Configuration settings module
 
     """
 
-    args_array = dict(args_array)
     code = get_code(cfg.url, cfg.read_timeout, cfg.connect_timeout)
 
     if code in cfg.code_list or "Timeout" in str(code):
-        email_admin(args_array, cfg, code)
+        email_admin(args, cfg, code)
 
-        if "-M" not in args_array:
+        if not args.arg_exist("-M"):
             service_cmd(cfg.service, "stop")
             time.sleep(30)
 

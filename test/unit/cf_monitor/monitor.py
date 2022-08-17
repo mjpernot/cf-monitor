@@ -34,6 +34,44 @@ import version
 __version__ = version.__version__
 
 
+class ArgParser(object):
+
+    """Class:  ArgParser
+
+    Description:  Class stub holder for gen_class.ArgParser class.
+
+    Methods:
+        __init__
+        arg_exist
+
+    """
+
+    def __init__(self):
+
+        """Method:  __init__
+
+        Description:  Class initialization.
+
+        Arguments:
+
+        """
+
+        self.cmdline = None
+        self.args_array = dict()
+
+    def arg_exist(self, arg):
+
+        """Method:  arg_exist
+
+        Description:  Method stub holder for gen_class.ArgParser.arg_exist.
+
+        Arguments:
+
+        """
+
+        return True if arg in self.args_array else False
+
+
 class UnitTest(unittest.TestCase):
 
     """Class:  UnitTest
@@ -90,8 +128,9 @@ class UnitTest(unittest.TestCase):
                 self.start_sleep = 1
 
         self.cfg = CfgTest()
-        self.args_array = {}
-        self.args_array2 = {"-M": True}
+        self.args = ArgParser()
+        self.args2 = ArgParser()
+        self.args2.args_array = {"-M": True}
 
     @mock.patch("cf_monitor.kill_process", mock.Mock(return_value=True))
     @mock.patch("cf_monitor.find_process", mock.Mock(return_value=[111]))
@@ -111,7 +150,7 @@ class UnitTest(unittest.TestCase):
 
         mock_cmd.side_effect = [True, "up_msg", "down_msg", True]
 
-        self.assertFalse(cf_monitor.monitor(self.args_array, self.cfg))
+        self.assertFalse(cf_monitor.monitor(self.args, self.cfg))
 
     @mock.patch("cf_monitor.time.sleep", mock.Mock(return_value=True))
     @mock.patch("cf_monitor.email_admin", mock.Mock(return_value=True))
@@ -129,7 +168,7 @@ class UnitTest(unittest.TestCase):
 
         mock_cmd.side_effect = [True, "down_msg", True]
 
-        self.assertFalse(cf_monitor.monitor(self.args_array, self.cfg))
+        self.assertFalse(cf_monitor.monitor(self.args, self.cfg))
 
     @mock.patch("cf_monitor.email_admin", mock.Mock(return_value=True))
     @mock.patch("cf_monitor.get_code", mock.Mock(return_value="A Timeout."))
@@ -143,7 +182,7 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        self.assertFalse(cf_monitor.monitor(self.args_array2, self.cfg))
+        self.assertFalse(cf_monitor.monitor(self.args2, self.cfg))
 
     @mock.patch("cf_monitor.email_admin", mock.Mock(return_value=True))
     @mock.patch("cf_monitor.get_code", mock.Mock(return_value=502))
@@ -157,7 +196,7 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        self.assertFalse(cf_monitor.monitor(self.args_array2, self.cfg))
+        self.assertFalse(cf_monitor.monitor(self.args2, self.cfg))
 
     @mock.patch("cf_monitor.get_code", mock.Mock(return_value=404))
     def test_no_code_detected(self):
@@ -170,7 +209,7 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        self.assertFalse(cf_monitor.monitor(self.args_array, self.cfg))
+        self.assertFalse(cf_monitor.monitor(self.args, self.cfg))
 
 
 if __name__ == "__main__":
