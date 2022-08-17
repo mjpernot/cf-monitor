@@ -59,7 +59,6 @@ import psutil
 import requests
 
 # Local
-import lib.arg_parser as arg_parser
 import lib.gen_libs as gen_libs
 import lib.gen_class as gen_class
 import version
@@ -88,10 +87,10 @@ def get_code(url, read_timeout=None, connect_timeout=None):
     Description:  Open a connection to a web server and return the status code.
 
     Arguments:
-        (input) url -> Web url address.
-        (input) read_timeout -> Number of seconds for a read timeout.
-        (input) connect_timeout -> Number of seconds for a connect timeout.
-        (output) status -> Status of the web server.
+        (input) url -> Web url address
+        (input) read_timeout -> Number of seconds for a read timeout
+        (input) connect_timeout -> Number of seconds for a connect timeout
+        (output) status -> Status of the web server
 
     """
 
@@ -108,25 +107,24 @@ def get_code(url, read_timeout=None, connect_timeout=None):
     return status
 
 
-def email_admin(args_array, cfg, code):
+def email_admin(args, cfg, code):
 
     """Function:  email_admin
 
     Description:  Email status code to administrators.
 
     Arguments:
-        (input) args_array -> Dict of command line options and values.
-        (input) cfg -> Configuration settings module.
-        (input) code -> Status code.
+        (input) args -> ArgParser class instance
+        (input) cfg -> Configuration settings module
+        (input) code -> Status code
 
     """
 
-    args_array = dict(args_array)
     host = socket.gethostname()
     frm_line = getpass.getuser() + "@" + host
     subj = host + "-> Coldfusion Status Code: " + str(code)
-    dtg = datetime.datetime.strftime(datetime.datetime.now(),
-                                     "%Y-%m-%d %H:%M:%S")
+    dtg = datetime.datetime.strftime(
+        datetime.datetime.now(), "%Y-%m-%d %H:%M:%S")
     line = " Detected %s status code during a status check.\n" % str(code)
     line2 = "Rebooting service..."
 
@@ -134,7 +132,7 @@ def email_admin(args_array, cfg, code):
     email.add_2_msg(dtg)
     email.add_2_msg(line)
 
-    if "-M" not in args_array:
+    if args.arg_exist("-M"):
         email.add_2_msg(line2)
 
     email.send_mail()
@@ -147,9 +145,9 @@ def service_cmd(service, arg):
     Description:  Run the system service program with designated command.
 
     Arguments:
-        (input) service -> Name of service.
-        (input) arg -> Argument to run with service command.
-        (output) msg -> Status return message from service command.
+        (input) service -> Name of service
+        (input) arg -> Argument to run with service command
+        (output) msg -> Status return message from service command
 
     """
 
@@ -169,7 +167,7 @@ def kill_process(pid_list):
     Description:  Run the system kill command against a process pid.
 
     Arguments:
-        (input) pid_list -> List of pids to kill.
+        (input) pid_list -> List of pids to kill
 
     """
 
@@ -190,8 +188,8 @@ def find_process(cfg):
         a list of pids.
 
     Arguments:
-        (input) cfg -> Configuration settings module.
-        (output) pid_list -> List of pids to kill.
+        (input) cfg -> Configuration settings module
+        (output) pid_list -> List of pids to kill
 
     """
 
@@ -212,7 +210,7 @@ def find_process(cfg):
     return pid_list
 
 
-def monitor(args_array, cfg):
+def monitor(args, cfg):
 
     """Function:  monitor
 
@@ -220,18 +218,17 @@ def monitor(args_array, cfg):
         appropriate actions when certain conditions are meet.
 
     Arguments:
-        (input) args_array -> Dict of command line options and values.
-        (input) cfg -> Configuration settings module.
+        (input) args -> ArgParser class instance
+        (input) cfg -> Configuration settings module
 
     """
 
-    args_array = dict(args_array)
     code = get_code(cfg.url, cfg.read_timeout, cfg.connect_timeout)
 
     if code in cfg.code_list or "Timeout" in str(code):
-        email_admin(args_array, cfg, code)
+        email_admin(args, cfg, code)
 
-        if "-M" not in args_array:
+        if not args.arg_exist("-M"):
             service_cmd(cfg.service, "stop")
             time.sleep(30)
 
@@ -249,20 +246,19 @@ def monitor(args_array, cfg):
             time.sleep(cfg.start_sleep)
 
 
-def run_program(args_array, **kwargs):
+def run_program(args):
 
     """Function:  run_program
 
     Description:  Creates class instance and controls flow of the program.
 
     Arguments:
-        (input) args_array -> Dict of command line options and values.
+        (input) args -> ArgParser class instance
 
     """
 
-    args_array = dict(args_array)
-    cfg = gen_libs.load_module(args_array["-c"], args_array["-d"])
-    monitor(args_array, cfg)
+    cfg = gen_libs.load_module(args.get_val("-c"), args.get_val("-d"))
+    monitor(args, cfg)
 
 
 def main():
@@ -273,7 +269,8 @@ def main():
         line arguments and values.
 
     Variables:
-        dir_chk_list -> contains options which will be directories.
+        dir_perms_chk -> contains options which will be directories and the
+            octal permission settings
         opt_req_list -> contains options that are required for the program.
         opt_val_list -> contains options which require values.
 
@@ -283,26 +280,27 @@ def main():
     """
 
     cmdline = gen_libs.get_inst(sys)
-    dir_chk_list = ["-d"]
+    dir_perms_chk = {"-d": 5}
     opt_req_list = ["-c", "-d"]
     opt_val_list = ["-c", "-d", "-y"]
 
     # Process argument list from command line.
-    args_array = arg_parser.arg_parse2(cmdline.argv, opt_val_list)
+    args = gen_class.ArgParser(
+        cmdline.argv, opt_val=opt_val_list, do_parse=True)
 
-    if not gen_libs.help_func(args_array, __version__, help_message) \
-       and not arg_parser.arg_require(args_array, opt_req_list) \
-       and not arg_parser.arg_dir_chk_crt(args_array, dir_chk_list):
+    if not gen_libs.help_func(args.get_args(), __version__, help_message)   \
+       and args.arg_require(opt_req=opt_req_list)                           \
+       and args.arg_dir_chk(dir_perms_chk=dir_perms_chk):
 
         try:
-            proglock = gen_class.ProgramLock(cmdline.argv,
-                                             args_array.get("-y", ""))
-            run_program(args_array)
+            proglock = gen_class.ProgramLock(
+                cmdline.argv, args.get_val("-y", def_val=""))
+            run_program(args)
             del proglock
 
         except gen_class.SingleInstanceException:
             print("WARNING:  lock in place for cf_monitor with id of: %s"
-                  % (args_array.get("-y", "")))
+                  % (args.get_val("-y", def_val="")))
 
 
 if __name__ == "__main__":

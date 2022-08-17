@@ -31,6 +31,91 @@ import version
 __version__ = version.__version__
 
 
+class ArgParser(object):
+
+    """Class:  ArgParser
+
+    Description:  Class stub holder for gen_class.ArgParser class.
+
+    Methods:
+        __init__
+        arg_dir_chk
+        arg_require
+        get_args
+        get_val
+
+    """
+
+    def __init__(self):
+
+        """Method:  __init__
+
+        Description:  Class initialization.
+
+        Arguments:
+
+        """
+
+        self.cmdline = None
+        self.args_array = dict()
+        self.opt_req = None
+        self.opt_req2 = True
+        self.dir_perms_chk = None
+        self.dir_perms_chk2 = True
+
+    def arg_dir_chk(self, dir_perms_chk):
+
+        """Method:  arg_dir_chk
+
+        Description:  Method stub holder for gen_class.ArgParser.arg_dir_chk.
+
+        Arguments:
+
+        """
+
+        self.dir_perms_chk = dir_perms_chk
+
+        return self.dir_perms_chk2
+
+    def arg_require(self, opt_req):
+
+        """Method:  arg_require
+
+        Description:  Method stub holder for gen_class.ArgParser.arg_require.
+
+        Arguments:
+
+        """
+
+        self.opt_req = opt_req
+
+        return self.opt_req2
+
+    def get_args(self):
+
+        """Method:  get_args
+
+        Description:  Method stub holder for gen_class.ArgParser.get_args.
+
+        Arguments:
+
+        """
+
+        return self.args_array
+
+    def get_val(self, skey, def_val):
+
+        """Method:  get_val
+
+        Description:  Method stub holder for gen_class.ArgParser.get_val.
+
+        Arguments:
+
+        """
+
+        return self.args_array.get(skey, def_val)
+
+
 class ProgramLock(object):
 
     """Class:  ProgramLock
@@ -66,8 +151,10 @@ class UnitTest(unittest.TestCase):
         setUp
         test_help_true
         test_help_false
-        test_arg_dir_true
+        test_arg_req_false
+        test_arg_req_true
         test_arg_dir_false
+        test_arg_dir_true
         test_run_program
         test_programlock_true
         test_programlock_false
@@ -85,12 +172,15 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        self.args = {"-c": "config_file", "-d": "config_dir"}
-        self.args2 = {"-c": "config_file", "-d": "config_dir", "-y": "Flavor"}
+        self.args = ArgParser()
+        self.args2 = ArgParser()
+        self.args.args_array = {"-c": "config_file", "-d": "config_dir"}
+        self.args2.args_array = {
+            "-c": "config_file", "-d": "config_dir", "-y": "Flavor"}
         self.proglock = ProgramLock(["cmdline"], "FlavorID")
 
     @mock.patch("cf_monitor.gen_libs.help_func")
-    @mock.patch("cf_monitor.arg_parser.arg_parse2")
+    @mock.patch("cf_monitor.gen_class.ArgParser")
     def test_help_true(self, mock_arg, mock_help):
 
         """Function:  test_status_true
@@ -107,7 +197,7 @@ class UnitTest(unittest.TestCase):
         self.assertFalse(cf_monitor.main())
 
     @mock.patch("cf_monitor.gen_libs.help_func")
-    @mock.patch("cf_monitor.arg_parser")
+    @mock.patch("cf_monitor.gen_class.ArgParser")
     def test_help_false(self, mock_arg, mock_help):
 
         """Function:  test_status_false
@@ -118,91 +208,86 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        mock_arg.arg_parse2.return_value = self.args
+        self.args.opt_req2 = False
+
+        mock_arg.return_value = self.args
         mock_help.return_value = False
-        mock_arg.arg_require.return_value = True
 
         self.assertFalse(cf_monitor.main())
 
     @mock.patch("cf_monitor.gen_libs.help_func")
-    @mock.patch("cf_monitor.arg_parser")
-    def test_require_true_chk_true(self, mock_arg, mock_help):
+    @mock.patch("cf_monitor.gen_class.ArgParser")
+    def test_arg_req_false(self, mock_arg, mock_help):
 
-        """Function:  test_require_true_chk_true
+        """Function:  test_arg_req_false
 
-        Description:  Test main function with arg_require returns True and
-            arg_dir_chk_crt returns True.
+        Description:  Test arg_require if returns false.
 
         Arguments:
 
         """
 
-        mock_arg.arg_parse2.return_value = self.args
+        self.args.opt_req2 = False
+
+        mock_arg.return_value = self.args
         mock_help.return_value = False
-        mock_arg.arg_require.return_value = True
-        mock_arg.arg_dir_chk_crt.return_value = True
 
         self.assertFalse(cf_monitor.main())
 
     @mock.patch("cf_monitor.gen_libs.help_func")
-    @mock.patch("cf_monitor.arg_parser")
-    def test_require_false_chk_true(self, mock_arg, mock_help):
+    @mock.patch("cf_monitor.gen_class.ArgParser")
+    def test_arg_req_true(self, mock_arg, mock_help):
 
-        """Function:  test_require_false_chk_true
+        """Function:  test_arg_req_true
 
-        Description:  Test main function with arg_require returns False and
-            arg_dir_chk_crt returns True.
+        Description:  Test arg_require if returns true.
 
         Arguments:
 
         """
 
-        mock_arg.arg_parse2.return_value = self.args
+        self.args.dir_perms_chk2 = False
+
+        mock_arg.return_value = self.args
         mock_help.return_value = False
-        mock_arg.arg_require.return_value = False
-        mock_arg.arg_dir_chk_crt.return_value = True
 
         self.assertFalse(cf_monitor.main())
 
     @mock.patch("cf_monitor.gen_libs.help_func")
-    @mock.patch("cf_monitor.arg_parser")
-    def test_require_true_chk_false(self, mock_arg, mock_help):
+    @mock.patch("cf_monitor.gen_class.ArgParser")
+    def test_arg_dir_false(self, mock_arg, mock_help):
 
-        """Function:  test_require_true_chk_false
+        """Function:  test_arg_dir_false
 
-        Description:  Test main function with arg_require returns True and
-            arg_dir_chk_crt returns False.
+        Description:  Test arg_dir_chk if returns false.
 
         Arguments:
 
         """
 
-        mock_arg.arg_parse2.return_value = self.args
+        self.args.dir_perms_chk2 = False
+
+        mock_arg.return_value = self.args
         mock_help.return_value = False
-        mock_arg.arg_require.return_value = True
-        mock_arg.arg_dir_chk_crt.return_value = False
 
         self.assertFalse(cf_monitor.main())
 
     @mock.patch("cf_monitor.run_program", mock.Mock(return_value=True))
     @mock.patch("cf_monitor.gen_class.ProgramLock")
     @mock.patch("cf_monitor.gen_libs.help_func")
-    @mock.patch("cf_monitor.arg_parser")
-    def test_require_false_chk_false(self, mock_arg, mock_help, mock_lock):
+    @mock.patch("cf_monitor.gen_class.ArgParser")
+    def test_arg_dir_true(self, mock_arg, mock_help, mock_lock):
 
-        """Function:  test_require_false_chk_false
+        """Function:  test_arg_dir_true
 
-        Description:  Test main function with arg_require returns False and
-            arg_dir_chk_crt returns False.
+        Description:  Test arg_dir_chk if returns true.
 
         Arguments:
 
         """
 
-        mock_arg.arg_parse2.return_value = self.args
+        mock_arg.return_value = self.args
         mock_help.return_value = False
-        mock_arg.arg_require.return_value = False
-        mock_arg.arg_dir_chk_crt.return_value = False
         mock_lock.return_value = self.proglock
 
         self.assertFalse(cf_monitor.main())
@@ -210,7 +295,7 @@ class UnitTest(unittest.TestCase):
     @mock.patch("cf_monitor.run_program", mock.Mock(return_value=True))
     @mock.patch("cf_monitor.gen_class.ProgramLock")
     @mock.patch("cf_monitor.gen_libs.help_func")
-    @mock.patch("cf_monitor.arg_parser")
+    @mock.patch("cf_monitor.gen_class.ArgParser")
     def test_run_program(self, mock_arg, mock_help, mock_lock):
 
         """Function:  test_run_program
@@ -221,10 +306,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        mock_arg.arg_parse2.return_value = self.args
+        mock_arg.return_value = self.args
         mock_help.return_value = False
-        mock_arg.arg_require.return_value = False
-        mock_arg.arg_dir_chk_crt.return_value = False
         mock_lock.return_value = self.proglock
 
         self.assertFalse(cf_monitor.main())
@@ -232,7 +315,7 @@ class UnitTest(unittest.TestCase):
     @mock.patch("cf_monitor.run_program", mock.Mock(return_value=True))
     @mock.patch("cf_monitor.gen_class.ProgramLock")
     @mock.patch("cf_monitor.gen_libs.help_func")
-    @mock.patch("cf_monitor.arg_parser")
+    @mock.patch("cf_monitor.gen_class.ArgParser")
     def test_programlock_true(self, mock_arg, mock_help, mock_lock):
 
         """Function:  test_programlock_true
@@ -243,10 +326,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        mock_arg.arg_parse2.return_value = self.args
+        mock_arg.return_value = self.args
         mock_help.return_value = False
-        mock_arg.arg_require.return_value = False
-        mock_arg.arg_dir_chk_crt.return_value = False
         mock_lock.return_value = self.proglock
 
         self.assertFalse(cf_monitor.main())
@@ -254,7 +335,7 @@ class UnitTest(unittest.TestCase):
     @mock.patch("cf_monitor.run_program", mock.Mock(return_value=True))
     @mock.patch("cf_monitor.gen_class.ProgramLock")
     @mock.patch("cf_monitor.gen_libs.help_func")
-    @mock.patch("cf_monitor.arg_parser")
+    @mock.patch("cf_monitor.gen_class.ArgParser")
     def test_programlock_false(self, mock_arg, mock_help, mock_lock):
 
         """Function:  test_programlock_false
@@ -265,10 +346,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        mock_arg.arg_parse2.return_value = self.args
+        mock_arg.return_value = self.args
         mock_help.return_value = False
-        mock_arg.arg_require.return_value = False
-        mock_arg.arg_dir_chk_crt.return_value = False
         mock_lock.side_effect = \
             cf_monitor.gen_class.SingleInstanceException
 
@@ -278,7 +357,7 @@ class UnitTest(unittest.TestCase):
     @mock.patch("cf_monitor.run_program", mock.Mock(return_value=True))
     @mock.patch("cf_monitor.gen_class.ProgramLock")
     @mock.patch("cf_monitor.gen_libs.help_func")
-    @mock.patch("cf_monitor.arg_parser")
+    @mock.patch("cf_monitor.gen_class.ArgParser")
     def test_programlock_id(self, mock_arg, mock_help, mock_lock):
 
         """Function:  test_programlock_id
@@ -289,10 +368,8 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        mock_arg.arg_parse2.return_value = self.args2
+        mock_arg.return_value = self.args2
         mock_help.return_value = False
-        mock_arg.arg_require.return_value = False
-        mock_arg.arg_dir_chk_crt.return_value = False
         mock_lock.return_value = self.proglock
 
         self.assertFalse(cf_monitor.main())
