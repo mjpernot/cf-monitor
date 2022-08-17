@@ -34,6 +34,44 @@ import version
 __version__ = version.__version__
 
 
+class ArgParser(object):
+
+    """Class:  ArgParser
+
+    Description:  Class stub holder for gen_class.ArgParser class.
+
+    Methods:
+        __init__
+        arg_exist
+
+    """
+
+    def __init__(self):
+
+        """Method:  __init__
+
+        Description:  Class initialization.
+
+        Arguments:
+
+        """
+
+        self.cmdline = None
+        self.args_array = dict()
+
+    def arg_exist(self, arg):
+
+        """Method:  arg_exist
+
+        Description:  Method stub holder for gen_class.ArgParser.arg_exist.
+
+        Arguments:
+
+        """
+
+        return True if arg in self.args_array else False
+
+
 class Mail(object):
 
     """Class:  Mail
@@ -87,6 +125,30 @@ class Mail(object):
         return True
 
 
+class CfgTest(object):
+
+    """Class:  CfgTest
+
+    Description:  Class which is a representation of a cfg module.
+
+    Methods:
+        __init__
+
+    """
+
+    def __init__(self):
+
+        """Method:  __init__
+
+        Description:  Initialization instance of the CfgTest class.
+
+        Arguments:
+
+        """
+
+        self.to_line = ["Email_Addresses"]
+
+
 class UnitTest(unittest.TestCase):
 
     """Class:  UnitTest
@@ -110,32 +172,11 @@ class UnitTest(unittest.TestCase):
 
         """
 
-        class CfgTest(object):
-
-            """Class:  CfgTest
-
-            Description:  Class which is a representation of a cfg module.
-
-            Methods:
-                __init__
-
-            """
-
-            def __init__(self):
-
-                """Method:  __init__
-
-                Description:  Initialization instance of the CfgTest class.
-
-                Arguments:
-
-                """
-
-                self.to_line = ["Email_Addresses"]
-
         self.cfg = CfgTest()
-        self.args_array = {"-M": True}
-        self.args_array2 = {}
+        self.args = ArgParser()
+        self.args2 = ArgParser()
+        self.args.args_array = {"-M": True}
+        self.args2.args_array = {}
         self.code = 400
         self.to_line = "to_line"
         self.subj = "subj"
@@ -155,8 +196,8 @@ class UnitTest(unittest.TestCase):
 
         mock_mail.return_value = self.mail
 
-        self.assertFalse(cf_monitor.email_admin(self.args_array2, self.cfg,
-                                                self.code))
+        self.assertFalse(
+            cf_monitor.email_admin(self.args2, self.cfg, self.code))
 
     @mock.patch("cf_monitor.gen_class.Mail")
     def test_monitor_only(self, mock_mail):
@@ -171,8 +212,8 @@ class UnitTest(unittest.TestCase):
 
         mock_mail.return_value = self.mail
 
-        self.assertFalse(cf_monitor.email_admin(self.args_array, self.cfg,
-                                                self.code))
+        self.assertFalse(
+            cf_monitor.email_admin(self.args, self.cfg, self.code))
 
 
 if __name__ == "__main__":

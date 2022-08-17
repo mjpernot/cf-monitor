@@ -108,25 +108,24 @@ def get_code(url, read_timeout=None, connect_timeout=None):
     return status
 
 
-def email_admin(args_array, cfg, code):
+def email_admin(args, cfg, code):
 
     """Function:  email_admin
 
     Description:  Email status code to administrators.
 
     Arguments:
-        (input) args_array -> Dict of command line options and values
+        (input) args -> ArgParser class instance
         (input) cfg -> Configuration settings module
         (input) code -> Status code
 
     """
 
-    args_array = dict(args_array)
     host = socket.gethostname()
     frm_line = getpass.getuser() + "@" + host
     subj = host + "-> Coldfusion Status Code: " + str(code)
-    dtg = datetime.datetime.strftime(datetime.datetime.now(),
-                                     "%Y-%m-%d %H:%M:%S")
+    dtg = datetime.datetime.strftime(
+        datetime.datetime.now(), "%Y-%m-%d %H:%M:%S")
     line = " Detected %s status code during a status check.\n" % str(code)
     line2 = "Rebooting service..."
 
@@ -134,7 +133,7 @@ def email_admin(args_array, cfg, code):
     email.add_2_msg(dtg)
     email.add_2_msg(line)
 
-    if "-M" not in args_array:
+    if args.arg_exist("-M"):
         email.add_2_msg(line2)
 
     email.send_mail()

@@ -72,6 +72,36 @@ class ArgParser(object):
         return True if arg in self.args_array else False
 
 
+class CfgTest(object):
+
+    """Class:  CfgTest
+
+    Description:  Class which is a representation of a cfg module.
+
+    Methods:
+        __init__
+
+    """
+
+    def __init__(self):
+
+        """Method:  __init__
+
+        Description:  Initialization instance of the CfgTest class.
+
+        Arguments:
+
+        """
+
+        self.url = "url"
+        self.read_timeout = 100
+        self.connect_timeout = 150
+        self.code_list = [502, 503]
+        self.service = "service"
+        self.down_msg = "down_msg"
+        self.start_sleep = 1
+
+
 class UnitTest(unittest.TestCase):
 
     """Class:  UnitTest
@@ -97,35 +127,6 @@ class UnitTest(unittest.TestCase):
         Arguments:
 
         """
-
-        class CfgTest(object):
-
-            """Class:  CfgTest
-
-            Description:  Class which is a representation of a cfg module.
-
-            Methods:
-                __init__
-
-            """
-
-            def __init__(self):
-
-                """Method:  __init__
-
-                Description:  Initialization instance of the CfgTest class.
-
-                Arguments:
-
-                """
-
-                self.url = "url"
-                self.read_timeout = 100
-                self.connect_timeout = 150
-                self.code_list = [502, 503]
-                self.service = "service"
-                self.down_msg = "down_msg"
-                self.start_sleep = 1
 
         self.cfg = CfgTest()
         self.args = ArgParser()
