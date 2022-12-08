@@ -9,22 +9,22 @@ pipeline {
         stage('Test') {
             steps {
                 dir ('lib') {
-                    git branch: "mod/292", credentialsId: "2cfb403c-be21-4fac-94d7-c8cd5c531feb", url: "https://gitlab.code.dicelab.net/JAC-IDM/python-lib.git"
+                    git branch: "mod/294", credentialsId: "2cfb403c-be21-4fac-94d7-c8cd5c531feb", url: "https://gitlab.code.dicelab.net/JAC-IDM/python-lib.git"
                 }
                 sh """
                 virtualenv test_env
                 source test_env/bin/activate
                 pip2 install mock==2.0.0 --user
                 pip2 install psutil==2.2.1 --user
-                ./test/unit/cf_monitor/email_admin.py
-                ./test/unit/cf_monitor/find_process.py
-                ./test/unit/cf_monitor/get_code.py
-                ./test/unit/cf_monitor/help_message.py
-                ./test/unit/cf_monitor/kill_process.py
-                ./test/unit/cf_monitor/main.py
-                ./test/unit/cf_monitor/monitor.py
-                ./test/unit/cf_monitor/run_program.py
-                ./test/unit/cf_monitor/service_cmd.py
+                /usr/bin/python ./test/unit/cf_monitor/email_admin.py
+                /usr/bin/python ./test/unit/cf_monitor/find_process.py
+                /usr/bin/python ./test/unit/cf_monitor/get_code.py
+                /usr/bin/python ./test/unit/cf_monitor/help_message.py
+                /usr/bin/python ./test/unit/cf_monitor/kill_process.py
+                /usr/bin/python ./test/unit/cf_monitor/main.py
+                /usr/bin/python ./test/unit/cf_monitor/monitor.py
+                /usr/bin/python ./test/unit/cf_monitor/run_program.py
+                /usr/bin/python ./test/unit/cf_monitor/service_cmd.py
                 deactivate
                 rm -rf test_env
                 """
