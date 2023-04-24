@@ -12,8 +12,6 @@
 import os
 import setuptools
 
-# Third-party
-
 # Local
 import version
 
@@ -45,5 +43,5 @@ setuptools.setup(
         "Operating System :: Linux",
         "Operating System :: Linux :: Centos",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.6",
-        "Programming Language :: Python :: 2.7"])
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.6"])

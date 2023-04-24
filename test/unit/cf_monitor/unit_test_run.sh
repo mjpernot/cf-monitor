@@ -6,12 +6,12 @@
 
 echo ""
 echo "Unit testing..."
-test/unit/cf_monitor/email_admin.py
-test/unit/cf_monitor/find_process.py
-test/unit/cf_monitor/get_code.py
-test/unit/cf_monitor/help_message.py
-test/unit/cf_monitor/kill_process.py
-test/unit/cf_monitor/main.py
-test/unit/cf_monitor/monitor.py
-test/unit/cf_monitor/run_program.py
-test/unit/cf_monitor/service_cmd.py
+/usr/bin/python test/unit/cf_monitor/email_admin.py
+/usr/bin/python test/unit/cf_monitor/find_process.py
+/usr/bin/python test/unit/cf_monitor/get_code.py
+/usr/bin/python test/unit/cf_monitor/help_message.py
+/usr/bin/python test/unit/cf_monitor/kill_process.py
+/usr/bin/python test/unit/cf_monitor/main.py
+/usr/bin/python test/unit/cf_monitor/monitor.py
+/usr/bin/python test/unit/cf_monitor/run_program.py
+/usr/bin/python test/unit/cf_monitor/service_cmd.py
