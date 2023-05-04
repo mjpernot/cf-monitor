@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # Classification (U)
 
 """Program:  main.py
@@ -18,8 +17,6 @@
 import sys
 import os
 import unittest
-
-# Third-party
 import mock
 
 # Local
