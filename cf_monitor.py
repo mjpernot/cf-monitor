@@ -156,10 +156,9 @@ def service_cmd(service, arg):
 
     """
 
-    subp = gen_libs.get_inst(subprocess)
     cmd = "/sbin/service"
 
-    proc1 = subp.Popen([cmd, service, arg], stdout=subp.PIPE)
+    proc1 = subprocess.Popen([cmd, service, arg], stdout=subprocess.PIPE)
     msg, _ = proc1.communicate()
 
     return msg
@@ -177,12 +176,11 @@ def kill_process(pid_list):
     """
 
     pid_list = list(pid_list)
-    subp = gen_libs.get_inst(subprocess)
     kill = "/usr/bin/kill"
     arg = "-9"
 
     for pid in pid_list:
-        subp.call([kill, arg, str(pid)])
+        subprocess.call([kill, arg, str(pid)])
 
 
 def find_process(cfg):
@@ -284,14 +282,13 @@ def main():
 
     """
 
-    cmdline = gen_libs.get_inst(sys)
     dir_perms_chk = {"-d": 5}
     opt_req_list = ["-c", "-d"]
     opt_val_list = ["-c", "-d", "-y"]
 
     # Process argument list from command line.
     args = gen_class.ArgParser(
-        cmdline.argv, opt_val=opt_val_list, do_parse=True)
+        sys.argv, opt_val=opt_val_list, do_parse=True)
 
     if not gen_libs.help_func(args.get_args(), __version__, help_message)   \
        and args.arg_require(opt_req=opt_req_list)                           \
@@ -299,7 +296,7 @@ def main():
 
         try:
             proglock = gen_class.ProgramLock(
-                cmdline.argv, args.get_val("-y", def_val=""))
+                sys.argv, args.get_val("-y", def_val=""))
             run_program(args)
             del proglock
 
