@@ -10,6 +10,7 @@ The format is based on "Keep a Changelog".  This project adheres to Semantic Ver
 
 ### Changed
 - main, service_cmd, kill_process: Removed gen_libs.get_inst call.
+- main: Replaced args.get_args with args in the gen_libs.help_func parameter list.
 - Set simplejson to 3.12.0 for Python 3.
 - Set chardet to 3.0.4 for Python 2.
 - Documentation updates.
