@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on "Keep a Changelog".  This project adheres to Semantic Versioning.
 
 
+## [1.0.3] - 2024-08-08
+- Updated simplejson==3.13.2
+- Added certifi==2019.11.28
+- Added idna==2.10
+- Removed email==4.0.3
+
+### Changed
+- Updates to requirements.txt.
+
+
 ## [1.0.2] - 2024-03-05
 - Updated to work in Red Hat 8
 - Updated python-lib to v3.0.3
