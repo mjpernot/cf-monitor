@@ -6,7 +6,7 @@ The format is based on "Keep a Changelog".  This project adheres to Semantic Ver
 
 ## [1.0.4] - 2024-09-27
 - Updated simplejson==3.13.2 for Python 3
-- Updated python-lib to v3.0.4
+- Updated python-lib to v3.0.5
 
 ### Changed
 - main: Removed parsing from gen_class.ArgParser call and called arg_parse2 as part of "if" statement.
