@@ -44,8 +44,6 @@
 """
 
 # Libraries and Global Variables
-from __future__ import print_function
-from __future__ import absolute_import
 
 # Standard
 import sys
@@ -64,8 +62,8 @@ try:
     from . import version
 
 except (ValueError, ImportError) as err:
-    import lib.gen_libs as gen_libs
-    import lib.gen_class as gen_class
+    import lib.gen_libs as gen_libs                     # pylint:disable=R0402
+    import lib.gen_class as gen_class                   # pylint:disable=R0402
     import version
 
 __version__ = version.__version__
@@ -130,7 +128,7 @@ def email_admin(args, cfg, code):
     subj = host + "-> Coldfusion Status Code: " + str(code)
     dtg = datetime.datetime.strftime(
         datetime.datetime.now(), "%Y-%m-%d %H:%M:%S")
-    line = " Detected %s status code during a status check.\n" % str(code)
+    line = f" Detected {str(code)} status code during a status check.\n"
     line2 = "Rebooting service..."
 
     email = gen_class.Mail(cfg.to_line, subj, frm_line)
@@ -156,9 +154,8 @@ def service_cmd(service, arg):
 
     """
 
-    cmd = "/sbin/service"
-
-    proc1 = subprocess.Popen([cmd, service, arg], stdout=subprocess.PIPE)
+    proc1 = subprocess.Popen(                           # pylint:disable=R1732
+        ["/sbin/service", service, arg], stdout=subprocess.PIPE)
     msg, _ = proc1.communicate()
 
     return msg
@@ -176,11 +173,9 @@ def kill_process(pid_list):
     """
 
     pid_list = list(pid_list)
-    kill = "/usr/bin/kill"
-    arg = "-9"
 
     for pid in pid_list:
-        subprocess.call([kill, arg, str(pid)])
+        subprocess.call(["/usr/bin/kill", "-9", str(pid)])
 
 
 def find_process(cfg):
@@ -241,9 +236,8 @@ def monitor(args, cfg):
                    cfg.down_msg:
                     break
 
-                else:
-                    pid_list = find_process(cfg)
-                    kill_process(pid_list)
+                pid_list = find_process(cfg)
+                kill_process(pid_list)
 
             service_cmd(cfg.service, "start")
             time.sleep(cfg.start_sleep)
@@ -301,8 +295,8 @@ def main():
             del proglock
 
         except gen_class.SingleInstanceException:
-            print("WARNING:  lock in place for cf_monitor with id of: %s"
-                  % (args.get_val("-y", def_val="")))
+            print(f'WARNING:  lock in place for cf_monitor with id of:'
+                  f' {args.get_val("-y", def_val="")}')
 
 
 if __name__ == "__main__":

@@ -21,8 +21,8 @@ import mock
 
 # Local
 sys.path.append(os.getcwd())
-import cf_monitor
-import version
+import cf_monitor                               # pylint:disable=E0401,C0413
+import version                                  # pylint:disable=E0401,C0413
 
 __version__ = version.__version__
 
