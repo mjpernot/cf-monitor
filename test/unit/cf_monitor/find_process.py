@@ -21,13 +21,13 @@ import mock
 
 # Local
 sys.path.append(os.getcwd())
-import cf_monitor
-import version
+import cf_monitor                               # pylint:disable=E0401,C0413
+import version                                  # pylint:disable=E0401,C0413
 
 __version__ = version.__version__
 
 
-class ProcessIter3(object):
+class ProcessIter3():                                   # pylint:disable=R0903
 
     """Class:  ProcessIter
 
@@ -69,7 +69,7 @@ class ProcessIter3(object):
         return self.proc
 
 
-class Psutil3(object):
+class Psutil3():                                        # pylint:disable=R0903
 
     """Class:  Psutil
 
@@ -94,7 +94,7 @@ class Psutil3(object):
         self.process_iter_list = [ProcessIter3(), ProcessIter3()]
 
 
-class ProcessIter2(object):
+class ProcessIter2():                                   # pylint:disable=R0903
 
     """Class:  ProcessIter
 
@@ -136,7 +136,7 @@ class ProcessIter2(object):
         return self.proc
 
 
-class Psutil2(object):
+class Psutil2():                                        # pylint:disable=R0903
 
     """Class:  Psutil
 
@@ -161,7 +161,7 @@ class Psutil2(object):
         self.process_iter_list = [ProcessIter2()]
 
 
-class ProcessIter(object):
+class ProcessIter():                                    # pylint:disable=R0903
 
     """Class:  ProcessIter
 
@@ -201,7 +201,7 @@ class ProcessIter(object):
         return self.proc
 
 
-class Psutil(object):
+class Psutil():                                         # pylint:disable=R0903
 
     """Class:  Psutil
 
@@ -224,6 +224,33 @@ class Psutil(object):
         """
 
         self.process_iter_list = [ProcessIter()]
+
+
+class CfgTest():                                        # pylint:disable=R0903
+
+    """Class:  CfgTest
+
+    Description:  Class which is a representation of a cfg module.
+
+    Methods:
+        __init__
+
+    """
+
+    def __init__(self):
+
+        """Method:  __init__
+
+        Description:  Initialization instance of the CfgTest class.
+
+        Arguments:
+
+        """
+
+        self.java_proc = "java_proc"
+        self.bs_proc = "bs_proc"
+        self.start_arg = "start_arg"
+        self.cf_dir = "cf_dir"
 
 
 class UnitTest(unittest.TestCase):
@@ -249,32 +276,6 @@ class UnitTest(unittest.TestCase):
         Arguments:
 
         """
-
-        class CfgTest(object):
-
-            """Class:  CfgTest
-
-            Description:  Class which is a representation of a cfg module.
-
-            Methods:
-                __init__
-
-            """
-
-            def __init__(self):
-
-                """Method:  __init__
-
-                Description:  Initialization instance of the CfgTest class.
-
-                Arguments:
-
-                """
-
-                self.java_proc = "java_proc"
-                self.bs_proc = "bs_proc"
-                self.start_arg = "start_arg"
-                self.cf_dir = "cf_dir"
 
         self.cfg = CfgTest()
         self.psutil = Psutil()

@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on "Keep a Changelog".  This project adheres to Semantic Versioning.
 
 
+## [2.0.0] - 2025-03-04
+Breaking changes
+
+- Removed support for Python 2.7.
+- Added certifi==2024.12.14
+- Updated urllib3==1.26.20
+- Updated python-lib==4.0.0
+
+### Changed
+- monitor: Refactored while loop "if" statement.
+- main: Converted string to f-string.
+- Documentation changes.
+
+
 ## [1.0.6] - 2024-11-19
 - Updated python-lib to v3.0.8
 
